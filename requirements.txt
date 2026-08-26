@@ -1,0 +1,3 @@
+# Standard library only for the core migration logic (sqlite3, re, dataclasses).
+# Test-only dependency:
+pytest>=8.0
