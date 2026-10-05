@@ -1,29 +1,22 @@
 # schema-migration-accelerator
 
-A real, tested Python data-migration accelerator: moves records from a
-messy, denormalized "legacy" schema into a clean, normalized "target"
-schema, with dry-run planning, per-record error isolation, and
-independent post-migration validation — built to close a specific gap
-for Allianz Services' "Intern (m/f/d) - AI Software Engineering"
-posting (Job ID 104555), whose core ask (software components for
-migration accelerators, used to help teams move faster and more
-reliably between systems, platforms, and data models) wasn't covered
-by anything else in my project portfolio.
+A tested Python data-migration accelerator: moves records from a messy,
+denormalized "legacy" schema into a clean, normalized "target" schema,
+with dry-run planning, per-record error isolation, and independent
+post-migration validation. It is the kind of software component that
+helps teams move faster and more reliably between systems, platforms,
+and data models.
 
 ## Why this project exists
 
-Every other project in this portfolio does something adjacent to
-software engineering, DevOps, or AI — but none of them actually
-*migrate* data or a schema from one shape to another, which is the
-literal, specific thing "migration accelerator" tooling does. Rather
-than lean only on adjacent CI/CD and AI-integration evidence, I built
-a small, real migration tool end to end: a legacy source schema, a
+I wanted a project that actually *migrates* data or a schema from one
+shape to another, rather than only doing something adjacent to it. So I
+built a small migration tool end to end: a legacy source schema, a
 normalized target schema, transform logic that handles the kind of
-inconsistent real-world data legacy systems actually contain, and —
-critically — independent validation that a migration run actually
-did what it claimed.
+inconsistent data legacy systems actually contain, and independent
+validation that a migration run did what it claimed.
 
-## What it actually does
+## What it does
 
 1. **`src/legacy_schema.py`** — a synthetic "legacy" SQLite database:
    one flat, denormalized table modeled on how an older
@@ -32,8 +25,7 @@ did what it claimed.
    "first last" formats, four different date formats, a missing
    premium value, a corrupt non-numeric premium value, and one
    customer who appears twice (two policies, same person). **All data
-   is synthetic, generated here — not real Allianz or any company's
-   data.**
+   is synthetic, generated here, not real company data.**
 2. **`src/target_schema.py`** — a normalized target schema
    (`customers` / `addresses` / `policies`), the shape a modern system
    typically wants instead of repeating a customer's contact details
@@ -109,7 +101,7 @@ pytest -v
 ============================== 41 passed in <1s ===============================
 ```
 
-### Regression-test discipline
+### Regression tests
 
 During development, the date-normalization logic for the `DD.MM.YYYY`
 format was deliberately broken (day and month swapped in the parsing
@@ -146,17 +138,15 @@ schema-migration-accelerator/
 └── .github/workflows/ci.yml
 ```
 
-## What this project is not
+## Scope
 
-- Not a real migration of any Allianz system or data — the legacy and
-  target schemas, and all records in them, are synthetic, written to
-  resemble a plausible policy-administration domain.
-- Not built with a commercial ETL/migration platform (e.g. AWS DMS,
-  Azure Data Migration) — this is a from-scratch Python accelerator,
-  demonstrating the underlying migration-tooling skill (schema
-  mapping, data-quality handling, dry-run planning, and independent
-  validation) rather than platform-specific tooling experience.
-- The legacy data's messiness (inconsistent formats, one corrupt
-  value, one missing value) is deliberately designed to exercise real
-  edge cases, not a claim about what any real legacy system looks
-  like specifically.
+- The legacy and target schemas, and all records in them, are synthetic,
+  written to resemble a plausible policy-administration domain; this is
+  not a migration of any real system or data.
+- It is a from-scratch Python accelerator, not built with a commercial
+  ETL/migration platform (e.g. AWS DMS, Azure Data Migration). It
+  covers schema mapping, data-quality handling, dry-run planning, and
+  independent validation rather than platform-specific tooling.
+- The legacy data's messiness (inconsistent formats, one corrupt value,
+  one missing value) is designed to exercise real edge cases, not to
+  describe what any particular legacy system looks like.
